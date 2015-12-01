@@ -1,7 +1,7 @@
 ARSF on JASMIN
 ================
 
-Scripts for running ARSF code on the [JASMIN](http://jasmin.ac.uk/) platform.
+Scripts for running ARSF code on the [JASMIN/CEMS](http://jasmin.ac.uk/) platform.
 Note for general enquires about JASMIN check the [FAQ](http://jasmin.ac.uk/faq/).
 
 Setup
