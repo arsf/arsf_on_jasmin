@@ -16,9 +16,16 @@ If you want to process data archived at [NEODC](http://neodc.nerc.ac.uk/)
 register for access to the ARSF archive (if you haven't done so already). The
 ARSF archive (up to 2012) is available on the JASMIN platform under `/neodc/arsf/`
 
+Once you have access to JASMIN and have logged into one of the analysis VMs
+(e.g., `cems-sci1.cems.rl.ac.uk`) you need to load the ARSF programs.
+These aren't available by default but can be loaded using the modules
+system.
+To list all avilable modules use:
+
 ```bash
 module avail
 ```
+The ARSF modules are listed under `contrib/arsf`.
 
 To load [APL](https://github.com/arsf/apl), [LAStools](https://github.com/LAStools/LAStools/)
 and the [ARSF DEM Scripts](https://github.com/pmlrsg/arsf_dem_scripts) use the
@@ -27,6 +34,8 @@ following command:
 ```bash
 module load contrib/arsf/apl/3.5.6 contrib/arsf/lastools/20150925 contrib/arsf/arsf_dem_scripts/0.1.2
 ```
+Note you will need to do this every time you log on (or you can add to your
+`.bashrc`).
 
 Processing hyperspectral data using APL
 -----------------------------------------
