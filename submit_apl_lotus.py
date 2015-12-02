@@ -18,6 +18,7 @@ import sys
 DEFAULT_PIXEL_SIZE = 2
 
 #: Path to OSTN02 NTv2 Transform file
+#: Downloaded from https://www.ordnancesurvey.co.uk/business-and-government/help-and-support/navigation-technology/os-net/ostn02-ntv2-format.html
 OSTN02_NTV2_TRANSFORM_FILE = "/apps/contrib/arsf/arsf_common/ostn02/OSTN02_NTv2.gsb"
 
 def write_bsub_script_for_dict(flight_parameters, output_filename, zip_mapped=False):
