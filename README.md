@@ -40,7 +40,7 @@ Note you will need to do this every time you log on (or you can add to your
 Processing hyperspectral data using APL
 -----------------------------------------
 
-You can use the APL commands from one of the analysis nodes for processing data
+You can use the APL commands from one of the analysis nodes for processing data.
 However, to get the best performance is is recommended to use the
 [LOTUS](http://jasmin.ac.uk/how-to-use-jasmin/lotus-documentation/) system
 and submit each line as a separate job. A script has been created to simplify
