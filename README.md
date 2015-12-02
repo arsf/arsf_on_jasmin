@@ -57,3 +57,8 @@ submit_apl_lotus.py --inlevel1b flightlines/level1b/ \
 
 After checking the .bsub files look OK submit by adding the flag `--submit`
 to the command above. You can check the status of jobs using the `bsub` command.
+
+Processing LiDAR Data
+-----------------------
+
+To convert between LAS and ASCII formats and compress files using [LASzip](http://www.laszip.org/) the open source utilities from [LAStools](http://rapidlasso.com/lastools/) are available. For more details on using with ARSF LiDAR data see the ARSF-DAN wiki: https://arsf-dan.nerc.ac.uk/trac/wiki/FAQ/las2ascii
