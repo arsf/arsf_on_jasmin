@@ -43,7 +43,7 @@ aplcorr -lev1file {masked_1b_filename} -igmfile {igm_filename} -vvfile {fov_vect
 apltran -inproj latlong WGS84 -igm {igm_filename} -output {transformed_igm_filename} -outproj {output_projection}
 
 # Map file
-aplmap -igm {transformed_igm_filename} -ignorediskspace -lev1 {masked_1b_filename} -mapname {output_filename} -outputdatatype {outputdatatype} -pixelsize {pixel_size} {pixel_size} -bandlist ALL
+aplmap -igm {transformed_igm_filename} -ignorediskspace -lev1 {masked_1b_filename} -mapname {output_filename} -outputdatatype {outputdatatype} -pixelsize {pixel_size} {pixel_size} -bandlist {bands}
 
 '''.format(**flight_parameters)
 
@@ -91,6 +91,9 @@ if __name__ == '__main__':
    parser.add_argument('--pixel_size', type=float,
                         help='Pixel size for mapped files',
                         required=False, default=DEFAULT_PIXEL_SIZE)
+   parser.add_argument('--bands', type=str,
+                        help='Bands to map as space separated list (default = ALL)',
+                        required=False, default='ALL')
    parser.add_argument('--submit', action='store_true',
                         help='Submit jobs for processing.',
                         required=False, default=False)
@@ -156,6 +159,7 @@ if __name__ == '__main__':
          flight_parameters['output_projection'] = 'osng {}'.format(OSTN02_NTV2_TRANSFORM_FILE)
       flight_parameters['outputdatatype'] = 'uint16'
       flight_parameters['pixel_size'] = args.pixel_size
+      flight_parameters['bands'] = args.bands
 
       if args.view_vectors is None:
          fov_vectors_path = level1b_dir.replace('flightlines/level1b','sensor_FOV_vectors')
