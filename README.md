@@ -62,3 +62,11 @@ Processing LiDAR Data
 -----------------------
 
 To convert between LAS and ASCII formats and compress files using [LASzip](http://www.laszip.org/) the open source utilities from [LAStools](http://rapidlasso.com/lastools/) are available. For more details on using with ARSF LiDAR data see the ARSF-DAN wiki: https://arsf-dan.nerc.ac.uk/trac/wiki/FAQ/las2ascii
+
+To create a DTM/DSM from LAS files the [ARSF DEM Scripts](http://github.com/pmlrsg/arsf_dem_scripts) can be used.
+The script 'submit_las_to_dsm_lotus.py' provides an example of creating a DSM for multiple lines in parallel using the LOTUS sustem.
+
+
+
+
+
