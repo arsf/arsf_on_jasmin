@@ -66,7 +66,14 @@ To convert between LAS and ASCII formats and compress files using [LASzip](http:
 To create a DTM/DSM from LAS files the [ARSF DEM Scripts](http://github.com/pmlrsg/arsf_dem_scripts) can be used.
 The script 'submit_las_to_dsm_lotus.py' provides an example of creating a DSM for multiple lines in parallel using the LOTUS sustem.
 
+Usage is similar to 'submit_apl_lotus.py':
 
-
-
+```bash
+submit_las_to_dsm_lotus.py --inlas flightlines/discrete_laser/las1.2 \
+                           --outdir dsm
+                           --projection UKBNG \
+                           --outscripts . \
+                           --resolution 2 \
+                           --submit
+```
 
