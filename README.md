@@ -32,7 +32,7 @@ and the [ARSF DEM Scripts](https://github.com/pmlrsg/arsf_dem_scripts) use the
 following command:
 
 ```bash
-module load contrib/arsf/apl/3.5.6 contrib/arsf/lastools/20150925 contrib/arsf/arsf_dem_scripts/0.1.2
+module load contrib/arsf/apl contrib/arsf/lastools contrib/arsf/arsf_dem_scripts
 ```
 Note you will need to do this every time you log on (or you can add to your
 `.bashrc`).
