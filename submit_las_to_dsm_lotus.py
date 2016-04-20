@@ -18,6 +18,7 @@ import os
 import subprocess
 
 DEFAULT_PIXEL_SIZE = 2
+DEFAULT_DSM_METHOD = 'GRASS'
 
 def write_bsub_script_for_dict(flight_parameters, output_filename):
    """
@@ -31,7 +32,9 @@ def write_bsub_script_for_dict(flight_parameters, output_filename):
 #BSUB -W 01:00
 #BSUB -n 1
 
-las_to_dsm.py --projection {projection} --resolution {resolution} -o {out_dsm} {input_las}
+module load contrib/arsf/arsf_dem_scripts
+
+las_to_dsm.py --projection {projection} --resolution {resolution} --method {method} -o {out_dsm} {input_las}
 '''.format(**flight_parameters)
 
    with open(output_filename,'w') as f:
@@ -56,6 +59,9 @@ if __name__ == '__main__':
    parser.add_argument('--resolution', type=float,
                         help='Pixel size for mapped files',
                         required=False, default=DEFAULT_PIXEL_SIZE)
+   parser.add_argument('--method', type=str,
+                        help='Method to use for creating DSM',
+                        required=False, default=DEFAULT_DSM_METHOD)
    parser.add_argument('--submit', action='store_true',
                         help='Submit jobs for processing.',
                         required=False, default=False)
@@ -75,7 +81,10 @@ if __name__ == '__main__':
       os.makedirs(output_scripts)
 
    # Get a list of input files
-   las_files_list = glob.glob(os.path.join(os.path.abspath(args.inlas),'*.LAS'))
+   las_files_list = glob.glob(os.path.join(os.path.abspath(args.inlas),'*.[Ll][Aa][Ss]'))
+   las_files_list.extend(glob.glob(os.path.join(os.path.abspath(args.inlas),'*.[Ll][Aa][Zz]')))
+
+   print(las_files_list)
 
    for line_num, las_file in enumerate(las_files_list):
 
@@ -91,6 +100,7 @@ if __name__ == '__main__':
       flight_parameters['out_dsm'] = os.path.join(output_dir, las_basename + '_dsm.tif')
       flight_parameters['projection'] = args.projection
       flight_parameters['resolution'] = args.resolution
+      flight_parameters['method'] = args.method
 
       out_bsub_script = os.path.join(output_scripts,'{}_process.bsub'.format(las_basename))
 
