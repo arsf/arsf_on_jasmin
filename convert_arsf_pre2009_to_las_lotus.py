@@ -37,7 +37,7 @@ def write_bsub_script_for_dict(flight_parameters, output_filename):
 # Load LAStools and arsf_tools
 module load contrib/arsf/lastools contrib/arsf/arsf_tools
 
-convert_pre2009_lidar.py -i {all_file} -o {output_dir}/{basename}{out_ext}
+convert_pre2009_lidar.py -i {input_all} -o {outdir}/{basename}{out_ext}
 
 '''.format(**flight_parameters)
 
