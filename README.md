@@ -14,7 +14,7 @@ can apply for access to the 'CEMS - ARSF Processing' workspace.
 
 If you want to process data archived at [NEODC](http://neodc.nerc.ac.uk/)
 register for access to the ARSF archive (if you haven't done so already). The
-ARSF archive (up to 2012) is available on the JASMIN platform under `/neodc/arsf/`
+ARSF archive is available on the JASMIN platform under `/neodc/arsf/`
 
 Once you have access to JASMIN and have logged into one of the analysis VMs
 (e.g., `cems-sci1.cems.rl.ac.uk`) you need to load the ARSF programs.

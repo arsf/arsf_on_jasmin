@@ -17,8 +17,8 @@ import glob
 import os
 import subprocess
 
-DEFAULT_PIXEL_SIZE = 2
-DEFAULT_DSM_METHOD = 'GRASS'
+DEFAULT_PIXEL_SIZE = 1
+DEFAULT_DSM_METHOD = 'points2grid'
 
 def write_bsub_script_for_dict(flight_parameters, output_filename):
    """
