@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 """
 A script to convert ASCII LiDAR files used for ARSF data
-prior to 2009 (.all) into LAZ files.
+prior to 2009 (.all) into LAS files.
 Submits each file as a separate job.
 
 For a description of the ASCII format used see:
 
 https://arsf-dan.nerc.ac.uk/trac/wiki/Processing/LIDARDEMs
 
-Uses sed to strip off UTM zone and LAStools to convert to LAZ
+Uses convert_pre_2009_lidar.py from ARSF_Tools (https://github.com/pmlrsg/arsf_tools)
 
 Author: Dan Clewley
 Creation Date: 23/02/2016
@@ -34,22 +34,10 @@ def write_bsub_script_for_dict(flight_parameters, output_filename):
 #BSUB -W 01:00
 #BSUB -n 1
 
-# Load LAStools
-module load contrib/arsf/lastools/20150925
+# Load LAStools and arsf_tools
+module load contrib/arsf/lastools contrib/arsf/arsf_tools
 
-# Remove UTM Zone
-cat {input_all} | sed 's/^\( *[.0-9]* *\)..\([.0-9]* *[.0-9]* *[.0-9]* *[.0-9]* *\)..\([.0-9]* *[.0-9]* *[.0-9]* *[.0-9]*\)/\\1\\2\\3/' > {outdir}/{basename}_stripped.all
-
-# Convert to first and last return LAZ files (prints each column which is skipped so redirect to /dev/null)
-txt2las -parse txyzissss -set_number_of_returns 2 -set_return_number 2 -i {outdir}/{basename}_stripped.all -o {outdir}/{basename}_last_return.laz > /dev/null 2>&1
-txt2las -parse tssssxyzi -set_number_of_returns 2 -set_return_number 1 -i {outdir}/{basename}_stripped.all -o {outdir}/{basename}_first_return.laz > /dev/null 2>&1
-
-# Merge into a single file
-lasmerge -i {outdir}/{basename}_first_return.laz -i {outdir}/{basename}_last_return.laz -o {outdir}/{basename}.laz
-
-rm {outdir}/{basename}_stripped.all
-rm {outdir}/{basename}_first_return.laz
-rm {outdir}/{basename}_last_return.laz
+convert_pre2009_lidar.py -i {all_file} -o {output_dir}/{basename}{out_ext}
 
 '''.format(**flight_parameters)
 
@@ -58,20 +46,24 @@ rm {outdir}/{basename}_last_return.laz
 
 if __name__ == '__main__':
    parser = argparse.ArgumentParser(
-   description='''Produce scripts for submitting data to be processed on as LOTUS jobs using bsub''',)
+   description='Produce scripts for submitting data to be processed '
+               'on as LOTUS jobs using bsub',)
    parser.add_argument('-i', '--inascii', type=str,
-                        help='Input directory containing .all files',
-                        required=True)
+                       help='Input directory containing .all files',
+                       required=True)
    parser.add_argument('-o', '--outdir', type=str,
-                        default=None,
-                        help='Output DSM directory',required=True)
+                       default=None,
+                       help='Output DSM directory',required=True)
    parser.add_argument('--outscripts', type=str,
-                        help='Output directory for bsub scripts (default = same as outdir)',
-                        default=None,
-                        required=False)
+                       help='Output directory for bsub scripts (default = same as outdir)',
+                       default=None,
+                       required=False)
    parser.add_argument('--submit', action='store_true',
-                        help='Submit jobs for processing.',
-                        required=False, default=False)
+                       help='Submit jobs for processing.',
+                       required=False, default=False)
+   parser.add_argument('--laz', action='store_true',
+                       help='Output in LAZ format rather than LAS',
+                       required=False, default=False)
    args = parser.parse_args()
 
    # Convert to absolute paths
@@ -83,11 +75,13 @@ if __name__ == '__main__':
 
    # Create output directories if they don't exist.
    if not os.path.isdir(output_dir):
-      print('Output directory "{}" does not exist - creating it now'.format(output_dir))
+      print('Output directory "{}" does not exist'
+            ' - creating it now'.format(output_dir))
       os.makedirs(output_dir)
 
    if not os.path.isdir(output_scripts):
-      print('Output scripts directory "{}" does not exist - creating it now'.format(output_scripts))
+      print('Output scripts directory "{}" does not exist'
+            ' - creating it now'.format(output_scripts))
       os.makedirs(output_scripts)
 
    # Get a list of input files
@@ -105,6 +99,9 @@ if __name__ == '__main__':
       flight_parameters['scripts_dir'] = output_scripts
       flight_parameters['input_all'] = all_file
       flight_parameters['outdir'] = output_dir
+      flight_parameters['out_ext'] = '.las'
+      if args.laz:
+         flight_parameters['out_ext'] = '.laz'
 
       out_bsub_script = os.path.join(output_scripts,'{}_process.bsub'.format(all_basename))
 
