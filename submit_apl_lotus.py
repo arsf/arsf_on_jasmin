@@ -154,6 +154,9 @@ def write_bsub_script_for_dict(line_parameters, output_filename,
 #BSUB -W 01:00
 #BSUB -n 1
 
+# Load APL
+module load contrib/arsf/apl
+
 # Mask file
 aplmask -lev1 {level1b_filename} -mask {mask_filename} -output {masked_1b_filename}
 
