@@ -1,0 +1,66 @@
+#!/bin/bash
+# This automatically cds to a project directory.
+#
+# Usage:
+# . neodc_pdir YYYY JJJ L
+#
+# The "." before the script is essential to make the cd happen in the
+# current terminal and not in a child process.
+#
+# Defaults to the current year, so
+# . projdir 141
+# Will at the time of writing this, go to 2016/141
+#
+#
+
+#Reset all variables, as this is run in the source environment. Bad things
+#happen if they are not reset. There should be a better way of doing this.
+ARGUMENT=
+YEAR=
+JDAY=
+FLETTER=
+
+usage()
+{
+cat << eof
+BASH script to change directory of given julian day, defaults to current year
+
+eof
+}
+
+
+for ARGUMENT; do
+   case $ARGUMENT in
+      *)
+         if [[ $ARGUMENT =~ ^[0-9][0-9][0-9][0-9]$ ]]; then
+            YEAR=$ARGUMENT
+         elif [[ $ARGUMENT =~ ^([0-9])?([0-9])?[0-9]$ ]]; then
+            JDAY=`echo $ARGUMENT | awk '{printf "%03d",$0}'`
+         elif [[ $ARGUMENT =~ ^([0-9])?([0-9])?[0-9][a-z]$ ]]; then
+            JDAY=`echo ${ARGUMENT:0:\`expr ${#ARGUMENT} - 1\`} | awk '{printf "%03d",$0}'`
+            FLETTER=${ARGUMENT:`expr ${#ARGUMENT} - 1`}
+         elif [[ $ARGUMENT =~ [a-z] ]]; then
+            FLETTER=$ARGUMENT
+         else
+            errorout "Could not identify this as a year or julian day: $ARGUMENT"
+            return
+         fi
+         ;;
+   esac
+done
+
+if [ ! "$YEAR" ]; then
+   YEAR=`date +"%Y"`
+elif [ ! "$JDAY" ]; then
+   errorout "Could not find julian day on command line"
+   return
+fi
+
+DATALOCATION=`find /neodc/arsf/$YEAR/*/*$JDAY$FLETTER* -maxdepth 0`
+if [ ! `echo $DATALOCATION | wc -w` -eq 1 ]; then
+   echo "Could not find data location"
+else
+   echo $DATALOCATION
+   cd $DATALOCATION
+fi
+

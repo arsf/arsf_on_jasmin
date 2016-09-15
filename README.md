@@ -37,6 +37,13 @@ module load contrib/arsf/apl contrib/arsf/lastools contrib/arsf/arsf_dem_scripts
 Note you will need to do this every time you log on (or you can add to your
 `.bashrc`).
 
+To make it easier to find data by year and day you can use the `neodc_pdir` script.
+For example to go to the directory containing data for 2015/249 use:
+
+```
+source neodc_pdir 2015 249
+```
+
 Processing hyperspectral data using APL
 -----------------------------------------
 
