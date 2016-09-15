@@ -25,6 +25,9 @@ DEFAULT_DATA_TYPE = "uint16"
 #: Downloaded from https://www.ordnancesurvey.co.uk/business-and-government/help-and-support/navigation-technology/os-net/ostn02-ntv2-format.html
 OSTN02_NTV2_BIN_FILE = "/apps/contrib/arsf/arsf_common/ostn02/OSTN02_NTv2.gsb"
 
+#: Wall time. Maximum time jobs have to run
+WALL_TIME = "06:00"
+
 def get_line_parameters(level1b_file, mask_directory, nav_directory, outproj,
                         dem_file,
                         view_vectors=None,
@@ -82,6 +85,8 @@ def get_line_parameters(level1b_file, mask_directory, nav_directory, outproj,
    line_parameters["outputdatatype"] = data_type
    line_parameters["pixel_size"] = str(pixel_size)
    line_parameters["bands"] = str(bands)
+
+   line_parameters["wall_time"] = WALL_TIME
 
    if view_vectors is None:
       fov_vectors_path = level1b_dir.replace("flightlines/level1b",
@@ -151,7 +156,7 @@ def write_bsub_script_for_dict(line_parameters, output_filename,
 #BSUB –o {scripts_dir}/%J.o
 #BSUB –e {scripts_dir}/%J.e
 #BSUB –q lotus
-#BSUB -W 01:00
+#BSUB -W {wall_time}
 #BSUB -n 1
 
 # Load APL
@@ -289,7 +294,7 @@ if __name__ == "__main__":
                     "-q","lotus",
                     "-o",os.path.join(output_scripts,"{}_%J.o".format(l1b_basename)),
                     "-e",os.path.join(output_scripts,"{}_%J.e".format(l1b_basename)),
-                    "-W","02:00",
+                    "-W",WALL_TIME,
                     "-n","1",
                     "<",out_bsub_script]
 
