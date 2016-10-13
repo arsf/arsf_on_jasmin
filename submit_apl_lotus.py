@@ -30,6 +30,7 @@ WALL_TIME = "06:00"
 
 def get_line_parameters(level1b_file, mask_directory, nav_directory, outproj,
                         dem_file,
+                        out_dir_base,
                         view_vectors=None,
                         data_type=DEFAULT_DATA_TYPE,
                         pixel_size=DEFAULT_PIXEL_SIZE,
@@ -67,6 +68,9 @@ def get_line_parameters(level1b_file, mask_directory, nav_directory, outproj,
    line_parameters["navigation_filename"] = os.path.join(nav_directory,
                                       l1b_basename + "_nav_post_processed.bil")
    line_parameters["dem_file"] = dem_file
+
+   output_dir = os.path.join(out_dir_base, l1b_basename)
+   line_parameters["output_dir"] = output_dir
 
    # Other parameters
    line_parameters["output_projection"] = outproj
@@ -161,6 +165,9 @@ def write_bsub_script_for_dict(line_parameters, output_filename,
 
 # Load APL
 module load contrib/arsf/apl
+
+# Create output directory
+mkdir {output_dir}
 
 # Mask file
 aplmask -lev1 {level1b_filename} -mask {mask_filename} -output {masked_1b_filename}
@@ -281,6 +288,7 @@ if __name__ == "__main__":
                                             nav_directory,
                                             args.outproj,
                                             args.dem,
+                                            output_dir,
                                             view_vectors=args.view_vectors,
                                             pixel_size=args.pixel_size,
                                             bands=args.bands)
