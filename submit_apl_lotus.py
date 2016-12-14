@@ -159,7 +159,7 @@ def write_bsub_script_for_dict(line_parameters, output_filename,
 #BSUB -J {level1b_basename}
 #BSUB –o {scripts_dir}/%J.o
 #BSUB –e {scripts_dir}/%J.e
-#BSUB –q lotus
+#BSUB –q short-serial
 #BSUB -W {wall_time}
 #BSUB -n 1
 
@@ -299,7 +299,7 @@ if __name__ == "__main__":
       write_bsub_script_for_dict(line_parameters, out_bsub_script, args.zip)
 
       submit_cmd = ["bsub",
-                    "-q","lotus",
+                    "-q","short-serial",
                     "-o",os.path.join(output_scripts,"{}_%J.o".format(l1b_basename)),
                     "-e",os.path.join(output_scripts,"{}_%J.e".format(l1b_basename)),
                     "-W",WALL_TIME,

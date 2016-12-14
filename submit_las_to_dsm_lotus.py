@@ -28,7 +28,7 @@ def write_bsub_script_for_dict(flight_parameters, output_filename):
 #BSUB -J {basename}
 #BSUB –o {scripts_dir}/%J.o
 #BSUB –e {scripts_dir}/%J.e
-#BSUB –q lotus
+#BSUB –q short-serial
 #BSUB -W 01:00
 #BSUB -n 1
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
       write_bsub_script_for_dict(flight_parameters, out_bsub_script)
 
       submit_cmd = ['bsub',
-                    '-q','lotus',
+                    '-q','short-serial',
                     '-o',os.path.join(output_scripts,'{}_%J.o'.format(las_basename)),
                     '-e',os.path.join(output_scripts,'{}_%J.e'.format(las_basename)),
                     '-W','02:00',
