@@ -1,7 +1,7 @@
-ARSF on JASMIN
-================
+NERC-ARF on JASMIN
+=====================
 
-Scripts for running ARSF code on the [JASMIN/CEMS](http://jasmin.ac.uk/) platform.
+Scripts for running NERC-ARF code on the [JASMIN/CEMS](http://jasmin.ac.uk/) platform.
 Note for general enquires about JASMIN check the [FAQ](http://jasmin.ac.uk/faq/).
 
 Setup
@@ -25,10 +25,10 @@ To list all avilable modules use:
 ```bash
 module avail
 ```
-The ARSF modules are listed under `contrib/arsf`.
+The NERC-ARF modules are listed under `contrib/arsf`.
 
 To load [APL](https://github.com/arsf/apl), [LAStools](https://github.com/LAStools/LAStools/)
-and the [ARSF DEM Scripts](https://github.com/pmlrsg/arsf_dem_scripts) use the
+and the [NERC-ARF DEM Scripts](https://github.com/pmlrsg/arsf_dem_scripts) use the
 following command:
 
 ```bash
@@ -70,7 +70,7 @@ Processing LiDAR Data
 
 To convert between LAS and ASCII formats and compress files using [LASzip](http://www.laszip.org/) the open source utilities from [LAStools](http://rapidlasso.com/lastools/) are available. For more details on using with ARSF LiDAR data see the ARSF-DAN wiki: https://arsf-dan.nerc.ac.uk/trac/wiki/FAQ/las2ascii
 
-To create a DTM/DSM from LAS files the [ARSF DEM Scripts](http://github.com/pmlrsg/arsf_dem_scripts) can be used.
+To create a DTM/DSM from LAS files the [NERC-ARF DEM Scripts](http://github.com/pmlrsg/arsf_dem_scripts) can be used.
 The script 'submit_las_to_dsm_lotus.py' provides an example of creating a DSM for multiple lines in parallel using the LOTUS sustem.
 
 Usage is similar to 'submit_apl_lotus.py':
