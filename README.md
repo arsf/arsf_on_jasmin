@@ -20,7 +20,7 @@ Once you have access to JASMIN and have logged into one of the analysis VMs
 (e.g., `cems-sci1.cems.rl.ac.uk`) you need to load the ARSF programs.
 These aren't available by default but can be loaded using the modules
 system.
-To list all avilable modules use:
+To list all available modules use:
 
 ```bash
 module avail
