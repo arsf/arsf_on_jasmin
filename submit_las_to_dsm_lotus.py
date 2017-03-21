@@ -30,6 +30,7 @@ def write_bsub_script_for_dict(flight_parameters, output_filename):
 #BSUB –e {scripts_dir}/%J.e
 #BSUB –q short-serial
 #BSUB -W 01:00
+#BSUB -M 8000
 #BSUB -n 1
 
 module load contrib/arsf/arsf_dem_scripts
@@ -110,6 +111,7 @@ if __name__ == '__main__':
                     '-q','short-serial',
                     '-o',os.path.join(output_scripts,'{}_%J.o'.format(las_basename)),
                     '-e',os.path.join(output_scripts,'{}_%J.e'.format(las_basename)),
+                    '-M', '8000',
                     '-W','02:00',
                     '-n','1',
                     '<',out_bsub_script]
