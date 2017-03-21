@@ -161,6 +161,7 @@ def write_bsub_script_for_dict(line_parameters, output_filename,
 #BSUB –e {scripts_dir}/%J.e
 #BSUB –q short-serial
 #BSUB -W {wall_time}
+#BSUB -M 8000
 #BSUB -n 1
 
 # Load APL
@@ -303,6 +304,7 @@ if __name__ == "__main__":
                     "-o",os.path.join(output_scripts,"{}_%J.o".format(l1b_basename)),
                     "-e",os.path.join(output_scripts,"{}_%J.e".format(l1b_basename)),
                     "-W",WALL_TIME,
+                    "-M", "8000",
                     "-n","1",
                     "<",out_bsub_script]
 
