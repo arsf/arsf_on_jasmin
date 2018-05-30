@@ -1,20 +1,19 @@
 NERC-ARF on JASMIN
 =====================
 
-Scripts for running NERC-ARF code on the [JASMIN/CEMS](http://jasmin.ac.uk/) platform.
-Note for general enquires about JASMIN check the [FAQ](http://jasmin.ac.uk/faq/).
+Scripts for running NERC-ARF code on the [JASMIN](http://jasmin.ac.uk/) platform.
 
 Setup
 ------
 
-The first thing to to is apply for access to JASMIN/CEMS (http://jasmin.ac.uk/workflow/)
+The first thing to to is [apply for a JASMIN account](https://help.jasmin.ac.uk/article/4435-get-a-jasmin-account)
 As part of the setup process you will be given the option to apply for access to
 a 'Group Workspace'. If you don't have a specific workspace for your project you
 can apply for access to the 'CEMS - ARSF Processing' workspace.
 
-If you want to process data archived at [NEODC](http://neodc.nerc.ac.uk/)
-register for access to the ARSF archive (if you haven't done so already). The
-ARSF archive is available on the JASMIN platform under `/neodc/arsf/`
+If you want to process data archived at [CEDA](http://www.ceda.ac.uk/)
+[register for access to the ARSF archive](https://services.ceda.ac.uk/cedasite/resreg/application?attributeid=arsf) (if you haven't done so already).
+The NERC-ARF archive is available on the JASMIN platform under `/neodc/arsf/`
 
 Once you have access to JASMIN and have logged into one of the analysis VMs
 (e.g., `cems-sci1.cems.rl.ac.uk`) you need to load the ARSF programs.
@@ -49,7 +48,7 @@ Processing hyperspectral data using APL
 
 You can use the APL commands from one of the analysis nodes for processing data.
 However, to get the best performance is is recommended to use the
-[LOTUS](http://jasmin.ac.uk/how-to-use-jasmin/lotus-documentation/) system
+[LOTUS](https://help.jasmin.ac.uk/article/110-lotus-overview) system
 and submit each line as a separate job. A script has been created to simplify
 creating and submitting jobs to process each line. Typical usage is:
 
@@ -68,7 +67,7 @@ to the command above. You can check the status of jobs using the `bsub` command.
 Processing LiDAR Data
 -----------------------
 
-To convert between LAS and ASCII formats and compress files using [LASzip](http://www.laszip.org/) the open source utilities from [LAStools](http://rapidlasso.com/lastools/) are available. For more details on using with ARSF LiDAR data see the ARSF-DAN wiki: https://arsf-dan.nerc.ac.uk/trac/wiki/FAQ/las2ascii
+To convert between LAS and ASCII formats and compress files using [LASzip](http://www.laszip.org/) the open source utilities from [LAStools](http://rapidlasso.com/lastools/) are available. For more details on using with ARSF LiDAR data see the ARSF-DAN wiki: https://nerc-arf-dan.pml.ac.uk/trac/wiki/FAQ/las2ascii
 
 To create a DTM/DSM from LAS files the [NERC-ARF DEM Scripts](http://github.com/pmlrsg/arsf_dem_scripts) can be used.
 The script 'submit_las_to_dsm_lotus.py' provides an example of creating a DSM for multiple lines in parallel using the LOTUS sustem.
