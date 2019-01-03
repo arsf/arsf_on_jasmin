@@ -83,3 +83,12 @@ submit_las_to_dsm_lotus.py --inlas flightlines/discrete_laser/las1.2 \
                            --submit
 ```
 
+Aerial Photography Data
+------------------------
+
+Some of the scanned aerial photography is stored in a compressed JP2 format, it is often easier to work with as a TIFF. To convert files the `gdal_translate` command can be used.
+The following script will submit each image as a separate LOTUS grid job.
+
+```bash
+convert_jp2_aerial_photos_tiff_lotus.py -i input_jp2 -o output_dir
+```
